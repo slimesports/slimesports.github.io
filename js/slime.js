@@ -25,7 +25,7 @@ function new_frame() {
     move_slimes();
     move_ball();
     stage.update();
-    createjs.Ticker.setFPS(document.getElementById('FPS').value);
+    createjs.Ticker.setFPS(60);
 }
 
 function gameStart() {
@@ -242,9 +242,9 @@ function move_slimes() {
     }
 
     if (keys.left === true) {
-        player_move(2, "left");
+        move_player(2, "left");
     } else if (keys.right === true) {
-        player_move(2, "right");
+        move_player(2, "right");
     } else {
         p2XV = 0;
     }
