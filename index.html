@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+<style>
+#canvas{
+	width:600px;
+	height:300px;
+	border:2px solid #000000;
+}
+.game-screen{
+	text-align: center;
+}
+</style>
+</head>
+
+<body onload="init();">
+<input id="FPS" value="60">
+<div class="game-screen">
+	<canvas id="canvas" width="800" height="400">
+	No HTML5 in your browser
+	</canvas>
+</div>
+
+<script src="lib/easeljs.min.js"></script>
+<script src="js/variables.js"></script>
+<script src="js/draw.js"></script>
+<script src="js/slime.js"></script>
+</body>
+</html>
