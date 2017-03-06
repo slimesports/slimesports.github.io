@@ -106,7 +106,8 @@
             game.physics.p2.setWorldMaterial(worldMaterial);
 
             // Create ball sprite
-            let ballSprite = game.add.sprite(dimensions.ball.left, dimensions.ball.top, 'ballImage');
+            let ballPositionX = (dimensions.screen.width/2 - dimensions.ball.radius);
+            let ballSprite = game.add.sprite(ballPositionX, dimensions.ball.top, 'ballImage');
             ballSprite.height = dimensions.ball.diameter;
             ballSprite.width = dimensions.ball.diameter;
 
