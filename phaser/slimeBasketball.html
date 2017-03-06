@@ -1,0 +1,179 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>slimeBball</title>
+    <script type="text/javascript" src="js/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script type="text/javascript">
+        var dimensions = {
+            screen: {
+                height: 400,
+                width: 800
+            },
+            game: {
+                gravity: 2000,
+                restitution: 0.1
+            },
+            ball: {
+                diameter: 25,
+                radius: 12.5,
+                top: 200,
+                left: 200
+            },
+            court: {
+                height: 80,
+                width: 800,
+                top: 450,
+                left: 0
+            },
+            goaltending: {
+                height: 5,
+                width: 85,
+                top: 720,
+                left: 0
+            },
+            halfcourt: {
+                height: 7,
+                width: 7,
+                top: 0,
+                left: 0
+            },
+            slime: {
+                radius: 40,
+                left: 100,
+                top: 300,
+                gravity: 1000
+            },
+            backboard: {
+                height: 80, // 60
+                width: 7, // 5
+                top: 160, // 120
+                left: 20
+            },
+            rim: {
+                height: 5, // 3
+                width: 55, // 41
+                top: 215, // 160
+                left: 27
+            },
+            net: {
+                height: 25,
+                width: 50
+            }
+        };
+
+        var game = new Phaser.Game(dimensions.screen.width, dimensions.screen.height, Phaser.CANVAS, 'phaser-example', {
+            preload: preload,
+            create: create,
+            update: update
+        });
+
+        function preload() {
+
+            game.load.image('sky', 'assets/sky.png');
+            game.load.image('rim', 'assets/platform.png');
+            game.load.image('slime', 'assets/slimer.png');
+            game.load.image('ballImage', 'assets/ball50.png');
+        }
+
+        var player1;
+        var cursors;
+
+        function create() {
+
+            game.add.image(0, 0, 'sky');
+
+            //	Enable p2 physics
+            game.physics.startSystem(Phaser.Physics.P2JS);
+            game.physics.p2.gravity.y = dimensions.game.gravity;
+            game.physics.p2.defaultRestitution = dimensions.game.restitution;
+
+            let spriteMaterial = game.physics.p2.createMaterial('spriteMaterial');
+            let worldMaterial = game.physics.p2.createMaterial('worldMaterial');
+            let contactMaterial = game.physics.p2.createContactMaterial(spriteMaterial, worldMaterial, {
+                restitution: 0.7
+            });
+            game.physics.p2.setWorldMaterial(worldMaterial);
+
+            // Create ball sprite
+            let ballSprite = game.add.sprite(dimensions.ball.left, dimensions.ball.top, 'ballImage');
+            ballSprite.height = dimensions.ball.diameter;
+            ballSprite.width = dimensions.ball.diameter;
+
+            //  Enable ball physics. This creates a default rectangular body.
+            game.physics.p2.enable(ballSprite);
+            ballSprite.body.setMaterial(spriteMaterial);
+
+            //  Add player1
+            player1 = game.add.sprite(dimensions.slime.left, dimensions.slime.top, 'slime');
+            player1.width = dimensions.slime.radius * 2;
+            player1.height = dimensions.slime.radius;
+
+            game.physics.p2.enable(player1);
+            player1.body.fixedRotation = true;
+
+            // Goal creation
+            let backboards = game.add.group();
+
+            // Left rim
+            let leftRim = backboards.create(dimensions.rim.left, dimensions.rim.top, 'rim');
+            leftRim.height = dimensions.rim.height;
+            leftRim.width = dimensions.rim.width;
+
+            game.physics.p2.enable(leftRim);
+            leftRim.body.static = true;
+
+            // Left backboard
+            let leftBackboard = backboards.create(dimensions.backboard.left, dimensions.backboard.top, 'rim');
+            leftBackboard.height = dimensions.backboard.height;
+            leftBackboard.width = dimensions.backboard.width;
+
+            game.physics.p2.enable(leftBackboard);
+            leftBackboard.body.static = true;
+
+            // Enable arrow support
+            cursors = game.input.keyboard.createCursorKeys();
+
+        }
+
+        function update() {
+            player1.body.velocity.x = 0;
+
+            if (cursors.left.isDown) {
+                player1.body.moveLeft(400);
+            }
+            else if (cursors.right.isDown) {
+                player1.body.moveRight(400);
+            }
+
+            if (cursors.up.isDown && isGrounded(player1)) {
+                player1.body.velocity.y = -700;
+            }
+            else if (cursors.down.isDown) {
+                player1.body.moveDown(400);
+            }
+
+        }
+
+        function isGrounded(player) {
+            let isStill = player.body.velocity.y < 50 && player.body.velocity.y > -50;
+            let jumpBoundary = dimensions.screen.height - dimensions.slime.radius/2;
+            let isLow = player.position.y > jumpBoundary;
+
+            return isStill && isLow;
+        }
+    </script>
+
+</body>
+
+</html>

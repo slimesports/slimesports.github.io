@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>Phaser - Making your first game, part 1</title>
+    <script type="text/javascript" src="js/phaser.min.js"></script>
+    <style type="text/css">
+        body {
+            margin: 0;
+        }
+    </style>
+</head>
+
+<body>
+
+    <script type="text/javascript">
+        var game = new Phaser.Game(960, 600, Phaser.CANVAS, 'phaser-example', {
+            preload: preload,
+            create: create
+        });
+
+        var ball;
+
+        function preload() {
+
+            ball = game.load.image('ball', 'assets/ball50.png');
+            ball.width = 16;
+            ball.height = 16;
+            game.load.image('sky', 'assets/sky.png');
+            game.load.image('platform', 'assets/platform.png');
+
+        }
+
+        var ballSprite;
+
+        function create() {
+
+            game.add.image(0, 0, 'sky');
+
+            //  Enable p2 physics
+            game.physics.startSystem(Phaser.Physics.P2JS);
+
+            game.physics.p2.gravity.y = 2000;
+
+            var spriteMaterial = game.physics.p2.createMaterial('spriteMaterial');
+            var worldMaterial = game.physics.p2.createMaterial('worldMaterial');
+            var contactMaterial = game.physics.p2.createContactMaterial(spriteMaterial, worldMaterial, {
+                restitution: 0.8
+            });
+
+            game.physics.p2.setWorldMaterial(worldMaterial);
+
+            ballSprite = game.add.sprite(200, 100, 'ball');
+
+            //  Enable for physics. This creates a default rectangular body.
+            game.physics.p2.enable(ballSprite);
+
+            ballSprite.body.setMaterial(spriteMaterial);
+
+            //  Adjust the gravity scale
+            // ballSprite.body.data.gravityScale = 1;
+
+        }
+    </script>
+
+</body>
+
+</html>
