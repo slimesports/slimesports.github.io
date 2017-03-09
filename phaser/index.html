@@ -9,6 +9,12 @@
         body {
             margin: 0;
         }
+        #game-screen {
+            text-align: center;
+        }
+        canvas {
+            border:2px solid black
+        }
     </style>
 </head>
 
@@ -33,7 +39,7 @@
             court: {
                 height: 80,
                 width: 800,
-                top: 450,
+                top: 370,
                 left: 0
             },
             goaltending: {
@@ -72,7 +78,7 @@
             }
         };
 
-        var game = new Phaser.Game(dimensions.screen.width, dimensions.screen.height, Phaser.CANVAS, 'phaser-example', {
+        var game = new Phaser.Game(dimensions.screen.width, dimensions.screen.height, Phaser.CANVAS, 'slime-basketball', {
             preload: preload,
             create: create,
             update: update
@@ -141,6 +147,14 @@
 
             game.physics.p2.enable(leftBackboard);
             leftBackboard.body.static = true;
+            
+            // Court creation
+            let court = game.add.sprite(dimensions.court.left, dimensions.court.top, 'rim');
+            court.height = dimensions.court.height;
+            court.width = dimensions.court.width;
+
+            game.physics.p2.enable(court);
+            court.body.static = true;
 
             // Enable arrow support
             cursors = game.input.keyboard.createCursorKeys();
