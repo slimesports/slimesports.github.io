@@ -17,19 +17,29 @@ var dimensions = {
         height: 80,
         width: 800,
         top: 320, // screen.height - court.height
-        left: 0
+        left: 0,
+        color: 0x888888
     },
-    goaltending: {
+    leftGoaltending: {
         height: 5,
         width: 85,
         top: 322, // screen.height - court.height + 2
-        left: 0
+        left: 0,
+        color: 0xFFFFFF
+    },
+    rightGoaltending: {
+        height: 5,
+        width: 85,
+        top: 322, // screen.height - court.height + 2
+        left: 715, // dimensions.court.width - dimensions.goaltending.width
+        color: 0xFFFFFF
     },
     halfcourt: {
         height: 7,
         width: 7,
         top: 322, // screen.height - court.height + 2
-        left: 397 // (screen.width / 2) - (halfcourt.width / 2)
+        left: 397, // (screen.width / 2) - (halfcourt.width / 2)
+        color: 0xFFFFFF
     },
     slime: {
         radius: 40,

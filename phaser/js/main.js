@@ -109,32 +109,13 @@ function createCourt() {
     return courtSprite;
 }
 
-function drawCourt() {
-    let courtGraphic = game.add.graphics(0, 0);
-
-    courtGraphic.beginFill(0x888888);
-    courtGraphic.lineStyle(0, 0xFFFFFF, 0);
-    courtGraphic.drawRect(dimensions.court.left, dimensions.court.top, dimensions.court.width, dimensions.court.height);
-    courtGraphic.endFill();
-
-    let leftGoaltending = drawCourtLine(dimensions.goaltending.left, dimensions.goaltending.width);
-    let rightGoaltendingX = (dimensions.court.width - dimensions.goaltending.width);
-    let rightGoaltending = drawCourtLine(rightGoaltendingX, dimensions.goaltending.width);
-    let halfCourtLine = drawCourtLine(dimensions.halfcourt.left, dimensions.halfcourt.width);
-
-    return courtGraphic;
-}
-
-function drawCourtLine(x, width) {
-    let courtLineGraphic = game.add.graphics(0, 0);
-    courtLineGraphic.beginFill(0xFFFFFF);
-    courtLineGraphic.lineStyle(0, 0xFFFFFF, 0);
-    courtLineGraphic.drawRect(0, 0, width, dimensions.goaltending.height);
-    courtLineGraphic.x = x;
-    courtLineGraphic.y = dimensions.goaltending.top;
-    courtLineGraphic.endFill();
-
-    return courtLineGraphic;
+function drawRectangle(dimensionObject) {
+    let rectangleGraphic = game.add.graphics(0, 0);
+    rectangleGraphic.beginFill(dimensionObject.color);
+    rectangleGraphic.lineStyle(0, 0xFFFFFF, 0);
+    rectangleGraphic.drawRect(dimensionObject.left, dimensionObject.top, dimensionObject.width, dimensionObject.height);
+    rectangleGraphic.endFill();
+    return rectangleGraphic;
 }
 
 function drawTeamNames() {
