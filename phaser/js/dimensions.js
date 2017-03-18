@@ -28,8 +28,8 @@ var dimensions = {
     halfcourt: {
         height: 7,
         width: 7,
-        top: 0,
-        left: 0
+        top: 322, // screen.height - court.height + 2
+        left: 397 // (screen.width / 2) - (halfcourt.width / 2)
     },
     slime: {
         radius: 40,
