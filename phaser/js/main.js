@@ -19,6 +19,12 @@ var cursors;
 var spriteMaterial;
 var timerDisplay;
 var timeRemaining = 0;
+const fontOptions = {
+    font: "17px Arial",
+    fill: "white"
+};
+var team1Text;
+var team2Text = "Team 2";
 
 function create() {
     //	Enable p2 physics
@@ -31,11 +37,11 @@ function create() {
     createSlime1();
     createHoops();
     createCourt();
-    createTimer();
+    drawTimer();
+    drawTeamNames();
 
     // Enable arrow support
     cursors = game.input.keyboard.createCursorKeys();
-
 }
 
 function createBall() {
@@ -96,7 +102,7 @@ function createCourt() {
 
     game.physics.p2.enable(courtSprite);
     courtSprite.body.static = true;
-    
+
     // draw visible but non-functial court
     drawCourt();
 
@@ -110,7 +116,7 @@ function drawCourt() {
     courtGraphic.lineStyle(0, 0xFFFFFF, 0);
     courtGraphic.drawRect(dimensions.court.left, dimensions.court.top, dimensions.court.width, dimensions.court.height);
     courtGraphic.endFill();
-    
+
     drawGoaltending(dimensions.goaltending.left);
     let rightGoaltendingX = (dimensions.court.width - dimensions.goaltending.width);
     drawGoaltending(rightGoaltendingX);
@@ -130,9 +136,14 @@ function drawGoaltending(x) {
     return goaltendingGraphic;
 }
 
-function createTimer() {
+function drawTeamNames() {
+    team1Text = game.add.text(40, 5, "Team 1", fontOptions);
+    team2Text = game.add.text(720, 5, "Team 2", fontOptions);
+}
+
+function drawTimer() {
     let timerStart = "0:00:00";
-    timerDisplay = game.add.text(dimensions.screen.width / 2, 80, timerStart, { fill: "white" });
+    timerDisplay = game.add.text(dimensions.screen.width / 2, 30, timerStart, fontOptions);
 }
 
 function update() {
