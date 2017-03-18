@@ -118,6 +118,15 @@ function drawRectangle(dimensionObject) {
     return rectangleGraphic;
 }
 
+function drawCourt() {
+    let courtGraphic = drawRectangle(dimensions.court);
+    let leftGoaltendingGraphic = drawRectangle(dimensions.leftGoaltending);
+    let rightGoaltending = drawRectangle(dimensions.rightGoaltending);
+    let halfCourtLine = drawRectangle(dimensions.halfcourt);
+
+    return courtGraphic;
+}
+
 function drawTeamNames() {
     team1Text = game.add.text(40, 5, "Team 1", fontOptions);
     team2Text = game.add.text(720, 5, "Team 2", fontOptions);
