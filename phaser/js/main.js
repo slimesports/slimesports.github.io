@@ -29,6 +29,7 @@ var team2Text = "Team 2";
 function create() {
     //	Enable p2 physics
     game.physics.startSystem(Phaser.Physics.P2JS);
+    game.stage.backgroundColor = "#0000FF";
     game.physics.p2.gravity.y = dimensions.game.gravity;
     // game.physics.p2.friction = lots;
     game.physics.p2.defaultRestitution = dimensions.game.restitution;
