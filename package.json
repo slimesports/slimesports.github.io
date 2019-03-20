@@ -1,0 +1,23 @@
+{
+    "name": "slimesports.github.io",
+    "version": "1.0.0",
+    "description": "This project features two different versions of Slime basketball, both implemented using a JavaScript framework. One uses EaselJS and the other uses Phaser.",
+    "main": "index.js",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "dependencies": {
+        "phaser": "3.16.2",
+        "@createjs/easeljs": "2.0.0-beta.4"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/slimesports/slimesports.github.io.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/slimesports/slimesports.github.io/issues"
+    },
+    "homepage": "https://github.com/slimesports/slimesports.github.io#readme"
+}
